@@ -4,7 +4,9 @@
 
 body {
   margin: 0;
-    background-color: #0B2434;
+  background-color: #0B2434;
+  display: flex;
+  justify-content: center;
 
   font-family: -apple-system, Karla, sans-serif;
   -webkit-font-smoothing: antialiased;
