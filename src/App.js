@@ -9,6 +9,7 @@ function App() {
 
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [rolls, setRolls] = useState(0)
 
   useEffect(() => {
     dice.every((die) => die.isHeld && dice[0].value === die.value) ?
@@ -31,8 +32,10 @@ function App() {
   function rollDice() {
     if (!tenzies) {
       setDice(prevDice => prevDice.map(die => die.isHeld ? die : generateNewDie()))
+      setRolls(prevRolls => prevRolls + 1)
     } else {
       setTenzies(false)
+      setRolls(0)
       setDice(allNewDice())
     }
   }
@@ -57,6 +60,7 @@ function App() {
       {tenzies && <Confetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+      <h1 className='stats'>Total rolls: {rolls}</h1>
       <div className="dice-container">
         {diceElements}
       </div>
