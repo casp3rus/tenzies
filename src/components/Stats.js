@@ -3,8 +3,8 @@ export default function Stats({ rolls, title, time }) {
     <div>
       <h1 className='stats'>{`${title} Game`}</h1>
       <div className='stats--details'>
-        <span>rolls: {rolls}</span>
-        {/* <span>{title === 'Current' && time }</span> */}
+        <span>ROLLS:{rolls}</span>
+        <span>{title === 'Current' ? `${time}s` : `TIME:${time}s`}</span>
       </div>
     </div>
   )

@@ -7,23 +7,34 @@ import Confetti from 'react-confetti';
 
 
 function App() {
-  const bestGameRoll = JSON.parse(localStorage.getItem('tenziesRolls'));
+  const savedGame = JSON.parse(localStorage.getItem('bestGame'));
 
-  const bestGame = {
-    rolls: bestGameRoll ? bestGameRoll : 0,
+  const bestGame = savedGame ? savedGame :
+    {
+      rolls: 0,
+      time: 0,
+    }
+  
+  console.log(bestGame)
+
+  const newGame = {
+    tenzies: false,
+    rolls: 0,
     time: 0,
   }
 
   const [dice, setDice] = useState(allNewDice())
-  const [tenzies, setTenzies] = useState(false)
-  const [rolls, setRolls] = useState(0)
+  const [game, setGame] = useState(newGame)
 
   useEffect(() => {
     dice.every((die) => die.isHeld && dice[0].value === die.value) ?
-      setTenzies(true) :
+      setGame(prevGame => ({ ...prevGame, tenzies: true })) :
       console.log('Keep Rolling')
   }, [dice])
 
+  function allNewDice() {
+    return Array.from({ length: 10 }, () => generateNewDie())
+  }
 
   function generateNewDie() {
     return {
@@ -33,24 +44,32 @@ function App() {
     }
   }
 
-  function allNewDice() {
-    return Array.from({ length: 10 }, () => generateNewDie())
-  }
-
-  function saveBestGame() {
-    if (bestGame.rolls === 0 || bestGame.rolls > rolls) {
-      localStorage.setItem('tenziesRolls', JSON.stringify(rolls))
+  useEffect(() => {
+    if (!game.tenzies) {
+      const startTime = Date.now()
+      setTimeout(() => setGame(oldGame => ({ ...oldGame, time: Math.floor(oldGame.time + (Date.now() - startTime) / 1000) })), 1000)
+    } else {
+      // saveBestTime()
     }
+  }, [game.time])
+
+  function saveGameToLocalStorage() {
+    if (bestGame.rolls > game.rolls || bestGame.rolls === 0) {
+      bestGame.rolls = game.rolls
+    } else if (bestGame.time > game.time || bestGame.time === 0) {
+      bestGame.time = game.time
+    }
+
+    localStorage.setItem('bestGame', JSON.stringify(bestGame))
   }
 
   function rollDice() {
-    if (!tenzies) {
+    if (!game.tenzies) {
       setDice(prevDice => prevDice.map(die => die.isHeld ? die : generateNewDie()))
-      setRolls(prevRolls => prevRolls + 1)
+      setGame(prevGame => ({ ...prevGame, rolls: prevGame.rolls + 1 }))
     } else {
-      saveBestGame()
-      setTenzies(false)
-      setRolls(0)
+      saveGameToLocalStorage()
+      setGame(newGame)
       setDice(allNewDice())
     }
   }
@@ -72,11 +91,11 @@ function App() {
 
   return (
     <main>
-      {tenzies && <Confetti />}
+      {game.tenzies && <Confetti />}
       <h1 className="title">Tenzies</h1>
       <p className="instructions">Roll until all dice are the same. Click each die to freeze it at it's current value between rolls.</p>
-      <Stats title={'Best'} rolls={bestGame.rolls} />
-      <Stats title={'Current'} rolls={rolls} />
+      <Stats title={'Best'} rolls={bestGame.rolls} time={bestGame.time} />
+      <Stats title={'Current'} rolls={game.rolls} time={game.time} />
       <div className="dice-container">
         {diceElements}
       </div>
@@ -84,7 +103,7 @@ function App() {
         className='roll-button'
         onClick={rollDice}
       >
-        {tenzies ? 'new game' : 'roll'}
+        {game.tenzies ? 'new game' : 'roll'}
       </button>
     </main>
   );
