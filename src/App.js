@@ -35,7 +35,7 @@ function App() {
 
       return () => clearInterval(interval);
     }
-  }, [game.time]);
+  }, [game]);
 
   function allNewDice() {
     return Array.from({ length: 10 }, () => generateNewDie());
