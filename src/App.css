@@ -2,29 +2,29 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:space-around;
+  justify-content: space-around;
   width: 640px;
   height: 640px;
   margin: 60px 40px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 10px;
   padding: 15px;
 }
 
 .title {
-    font-size: 40px;
-    margin: 0;
-    letter-spacing: 1.2rem;
-    margin-right: -1.2rem;
-    text-transform: uppercase;
+  font-size: 40px;
+  margin: 0;
+  letter-spacing: 1.2rem;
+  margin-right: -1.2rem;
+  text-transform: uppercase;
 }
 
 .instructions {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    margin: 0;
-    text-align: center;
-    max-width: 70%;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+  max-width: 70%;
 }
 
 .stats {
@@ -32,16 +32,16 @@ main {
   flex-direction: column;
   align-items: center;
   font-weight: 100;
-  letter-spacing: .2rem;
-  margin-right: -.2rem;
+  letter-spacing: 0.2rem;
+  margin-right: -0.2rem;
   /* width: 100%; */
 }
 
 .stats--details {
   display: flex;
   justify-content: space-between;
-  letter-spacing: .2rem;
-  margin-right: -.2rem;
+  letter-spacing: 0.2rem;
+  margin-right: -0.2rem;
   font-size: 1.1rem;
 }
 
@@ -53,15 +53,15 @@ main {
 }
 
 .face {
-	display: grid;
-	grid-template-areas:
-		"a . c"
-		"e g f"
-		"d . b";
+  display: grid;
+  grid-template-areas:
+    'a . c'
+    'e g f'
+    'd . b';
 
-	width: 70px;
-	height: 70px;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.50);
+  width: 70px;
+  height: 70px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   border-radius: 15%;
   cursor: pointer;
 }
@@ -71,33 +71,33 @@ main {
 }
 
 .pip {
-	display: block;
-	align-self: center;
-	justify-self: center;
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: #333;
+  display: block;
+  align-self: center;
+  justify-self: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #333;
 }
 
 .pip:nth-child(2) {
-	grid-area: b;
+  grid-area: b;
 }
 .pip:nth-child(3) {
-	grid-area: c;
+  grid-area: c;
 }
 .pip:nth-child(4) {
-	grid-area: d;
+  grid-area: d;
 }
 .pip:nth-child(5) {
-	grid-area: e;
+  grid-area: e;
 }
 .pip:nth-child(6) {
-	grid-area: f;
+  grid-area: f;
 }
 
 .pip:nth-child(odd):last-child {
-	grid-area: g;
+  grid-area: g;
 }
 
 .roll-button {
@@ -106,11 +106,15 @@ main {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 1.5rem;
-  color: #FFFFFF;
-  background: #5035FF;
-  box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
+  color: #ffffff;
+  background: #5035ff;
+  box-shadow: 7px 6px 28px 1px rgba(60, 39, 138, 0.18);
   border: none;
   border-radius: 3.81277px;
   margin-top: 30px;
   cursor: pointer;
+}
+
+.roll-button:active {
+  transform: scale(0.99);
 }
